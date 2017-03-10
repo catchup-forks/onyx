@@ -1,0 +1,17 @@
+/node_modules
+/resources/assets/lib/ckeditor
+/resources/assets/js/i18n
+/resources/assets/js/bootstrap.min.js
+/resources/assets/js/dataTables.bootstrap.min.js
+/resources/assets/js/dataTables.foundation.min.js
+/resources/assets/js/dataTables.jqueryui.min.js
+/resources/assets/js/jquery.dataTables.min.js
+/resources/assets/js/select2.full.min.js
+/resources/assets/js/select2.min.js
+/resources/assets/images
+/public
+/storage
+/vendor
+/.idea
+.env
+composer.lock
