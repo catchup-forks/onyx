@@ -60,8 +60,8 @@ class InventoryManagement extends Migration
 
         Schema::create('deliveries', function(Blueprint $table){
         	$table->bigIncrements('id');
-        	$table->unsignedBigInteger('distributer_id')->nullable();
-        	$table->foreign('distributer_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+        	$table->unsignedBigInteger('distributor_id')->nullable();
+        	$table->foreign('distributor_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
         	$table->unsignedBigInteger('order_id');
         	$table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
         	$table->timestamp('delivered_at');
