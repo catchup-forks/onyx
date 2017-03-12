@@ -135,6 +135,7 @@ class InventoryData extends Migration{
         	$table->char('locale', 2);
         	$table->primary(['option_value_id', 'locale']);
         	$table->foreign('option_value_id')->references('id')->on('option_values')->onUpdate('cascade')->onDelete('cascade');
+			$table->text('value');
 		});
 
         Schema::create('product_options', function(Blueprint $table){
