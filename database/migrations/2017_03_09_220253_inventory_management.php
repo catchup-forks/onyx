@@ -74,7 +74,14 @@ class InventoryManagement extends Migration
         	$table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
         	$table->unsignedInteger('duration_value');
         	$table->char('duration_unit', 1);
-        	$table->text('description');
+		});
+
+        Schema::create('warranty_locales', function(Blueprint $table){
+        	$table->unsignedBigInteger('warranty_id');
+        	$table->char('locale', 2);
+        	$table->primary(['warranty_id', 'locale']);
+        	$table->foreign('warranty_id')->references('id')->on('warranties')->onUpdate('cascade')->onDelete('cascade');
+			$table->text('description');
 		});
 
         Schema::create('custom_warranties', function(Blueprint $table){
@@ -103,6 +110,7 @@ class InventoryManagement extends Migration
     public function down(){
     	Schema::drop('order_warranties');
     	Schema::drop('custom_warranties');
+    	Schema::drop('warranty_locales');
     	Schema::drop('warranties');
     	Schema::drop('deliveries');
     	Schema::drop('consumptions');
