@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.13 on 2017-02-26.
+ * Generated for Laravel 5.4.13 on 2017-03-13.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1547,7 +1547,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the currently authenticated user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function user()
@@ -1582,7 +1582,7 @@ namespace Illuminate\Support\Facades {
          * Log the given user ID into the application without sessions or cookies.
          *
          * @param mixed $id
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */
         public static function onceUsingId($id)
@@ -1646,7 +1646,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \App\User|false 
+         * @return \App\Models\User|false 
          * @static 
          */
         public static function loginUsingId($id, $remember = false)
@@ -1693,7 +1693,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @static 
          */
         public static function getLastAttempted()
@@ -1818,7 +1818,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Return the currently cached user.
          *
-         * @return \App\User|null 
+         * @return \App\Models\User|null 
          * @static 
          */
         public static function getUser()
@@ -1864,7 +1864,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
+         * @return \App\Models\User 
          * @throws \Illuminate\Auth\AuthenticationException
          * @static 
          */
@@ -11346,6 +11346,155 @@ namespace GreyDev\ConfigExtension {
     }         
 }
     
+namespace Berkayk\OneSignal {
+
+    class OneSignalFacade {
+        
+        /**
+         * Turn on, turn off async requests
+         *
+         * @param bool $on
+         * @return $this 
+         * @static 
+         */
+        public static function async($on = true)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::async($on);
+        }
+        
+        /**
+         * Callback to execute after OneSignal returns the response
+         *
+         * @param Callable $requestCallback
+         * @return $this 
+         * @static 
+         */
+        public static function callback($requestCallback)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::callback($requestCallback);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function testCredentials()
+        {
+            return \Berkayk\OneSignal\OneSignalClient::testCredentials();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function addParams($params = array())
+        {
+            return \Berkayk\OneSignal\OneSignalClient::addParams($params);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function setParam($key, $value)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::setParam($key, $value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sendNotificationToUser($message, $userId, $url = null, $data = null, $buttons = null, $schedule = null)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::sendNotificationToUser($message, $userId, $url, $data, $buttons, $schedule);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sendNotificationToAll($message, $url = null, $data = null, $buttons = null, $schedule = null)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::sendNotificationToAll($message, $url, $data, $buttons, $schedule);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function sendNotificationToSegment($message, $segment, $url = null, $data = null, $buttons = null, $schedule = null)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::sendNotificationToSegment($message, $segment, $url, $data, $buttons, $schedule);
+        }
+        
+        /**
+         * Send a notification with custom parameters defined in
+         * https://documentation.onesignal.com/reference#section-example-code-create-notification
+         *
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function sendNotificationCustom($parameters = array())
+        {
+            return \Berkayk\OneSignal\OneSignalClient::sendNotificationCustom($parameters);
+        }
+        
+        /**
+         * Creates a user/player
+         *
+         * @param array $parameters
+         * @return mixed 
+         * @throws \Exception
+         * @static 
+         */
+        public static function createPlayer($parameters)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::createPlayer($parameters);
+        }
+        
+        /**
+         * Edit a user/player
+         *
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function editPlayer($parameters)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::editPlayer($parameters);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function post($endPoint)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::post($endPoint);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function put($endPoint)
+        {
+            return \Berkayk\OneSignal\OneSignalClient::put($endPoint);
+        }
+        
+    }         
+}
+    
 namespace Yajra\Datatables\Facades {
 
     class Datatables {
@@ -13426,6 +13575,8 @@ namespace {
             return \Illuminate\Database\Query\Builder::macroCall($method, $parameters);
         }
         }
+    
+    class OneSignal extends \Berkayk\OneSignal\OneSignalFacade {}
     
     class Datatables extends \Yajra\Datatables\Facades\Datatables {}
     
