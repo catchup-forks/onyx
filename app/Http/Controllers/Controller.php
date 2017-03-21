@@ -11,7 +11,7 @@ class Controller extends BaseController{
 	/**
 	 * @var array $data data to be included in the returned response.
 	 */
-    protected $data;
+    protected $data = [];
 	/**
 	 * @var array $loadedComponents Index of loaded components' features and their data status.
 	 */
@@ -36,7 +36,7 @@ class Controller extends BaseController{
 			}
 			$componentName = $this->getComponentName($component[0], $component[1]);
 			try{
-				$this->data[$componentName] += $this->componentObjects[$component[0]]->$component[1]();
+				$this->data[$componentName] = $this->componentObjects[$component[0]]->{$component[1]}();
 				$this->loadedComponents[$componentName] = true;
 			} catch(\Exception $e){
 				if(!isset($this->data['componentErrors']))
@@ -47,6 +47,18 @@ class Controller extends BaseController{
 		}
     }
 
+    /**
+     * Loading dynamic data required by a component over AJAX.
+     *
+     * @param string $component The component that requires the data.
+     * @return mixed Response data to be returned
+     */
+    protected function loadAjaxData($component){
+        $component = explode('@', $component);
+        $componentClass = "\\App\\Components\\$component[0]";
+        return (new $componentClass)->{$component[1]}();
+    }
+
 	/**
 	 * Getting UI component name according to Laravel views naming conventions.
 	 *
@@ -55,9 +67,11 @@ class Controller extends BaseController{
 	 * @return string "component.feature" view name.
 	 */
 	private function getComponentName($name, $feature){
-		$name = str_replace('_', '-', snake_case($name));
+        $name = explode('\\', $name);
+        $area = str_replace('_', '-', snake_case($name[0]));
+		$name = str_replace('_', '-', snake_case($name[1]));
 		$feature = str_replace('_', '-', snake_case($feature));
-		return "$name.$feature";
+		return "$area.$name.$feature";
     }
 
 	/**
@@ -66,7 +80,7 @@ class Controller extends BaseController{
 	 * @param string $view Layout view name to be responded with.
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 */
-    protected function respond($view){
-		return view($view, $this->data + ['loadedComponents' => $this->loadedComponents]);
+    protected function respond($view, $globalData = []){
+		return view($view, ['loadedData' => $this->data, 'loadedComponents' => $this->loadedComponents] + $globalData);
 	}
 }
