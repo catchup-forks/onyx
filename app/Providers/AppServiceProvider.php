@@ -10,7 +10,9 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot(){
-
+    	define('CATEGORY_ITEMS', 0);
+    	define('CATEGORY_PRODUCTS', 1);
+		define('CATEGORY_BOTH', 2);
     }
 
     /**
