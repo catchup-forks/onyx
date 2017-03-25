@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-xs-3 col-sm-3">
                             <label for="clear" class="control-label"><br/></label>
-                            <div class="btn btn-block btn-outline-secondary table-filter-clear" id="clear"><i class="material-icons">clear_all</i></div>
+                            <div class="btn btn-block btn-outline-secondary table-filter-clear" id="clear" title="{{trans('general.clear_filters')}}"><i class="material-icons">clear_all</i></div>
                         </div>
                     </div>
                 </div>
@@ -63,6 +63,9 @@
 </div>
 
 @push('scripts')
+<script type="text/javascript">
+    var urls = { listing: '{{url('admin/category/list')}}'}
+</script>
 <script type="text/javascript" src="{{asset('resources/assets/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/assets/js/dataTables.bootstrap4.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/assets/js/moment.min.js')}}"></script>

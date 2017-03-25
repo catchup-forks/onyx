@@ -10,5 +10,6 @@ Route::group(['prefix' => 'admin'], function(){
     });
     Route::group(['prefix' => 'category'], function(){
         Route::get('list', 'Admin\CategoryController@getList');
+        Route::post('list', 'Admin\CategoryController@postList');
     });
 });

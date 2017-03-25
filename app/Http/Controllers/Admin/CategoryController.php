@@ -7,4 +7,8 @@ class CategoryController extends Controller{
         $this->loadComponentsData('Admin\Category@listing');
         return $this->respond('admin.category', ['title' => 'Categories Listing']);
     }
+
+    public function postList(){
+        return response()->json($this->loadAjaxData('Admin\Category@listing'));
+    }
 }
