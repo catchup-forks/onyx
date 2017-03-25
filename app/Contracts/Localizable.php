@@ -16,7 +16,7 @@ trait Localizable{
 	 * @param string $locale Localization language code
 	 * @return \Illuminate\Database\Eloquent\Relations\Relation
 	 */
-	public function locale($locale){
-		return $this->locales()->whereLocale($locale);
+	public function locale(){
+		return $this->locales()->whereLocale(\App::getLocale());
 	}
 }
