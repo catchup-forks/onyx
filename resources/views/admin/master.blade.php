@@ -90,6 +90,9 @@
     </div>
 </div>
 <script type="text/javascript" src="{{asset('resources/assets/js/admin.min.js')}}"></script>
+<script type="text/javascript">
+    $.ajaxSettings.headers = { 'X-CSRF-TOKEN': '{{csrf_token()}}' };
+</script>
 @stack('scripts')
 </body>
 </html>
