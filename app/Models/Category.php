@@ -11,11 +11,15 @@ class Category extends Model{
 	protected $dates = ['deleted_at'];
 
 	public function parent(){
-		return $this->belongsTo('App\Models\Category', 'parent_id');
+		return $this->belongsTo('App\Models\Category', 'parent_id')->select(['id', 'parent_id'])->with('locale');
+	}
+
+    public function ancestors(){
+        return $this->parent()->with('ancestors');
 	}
 
 	public function subcategories(){
-		return $this->hasMany('App\Models\Category', 'parent_id');
+		return $this->hasMany('App\Models\Category', 'parent_id')->with('locales');
 	}
 
 	public function products(){
