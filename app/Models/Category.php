@@ -23,10 +23,10 @@ class Category extends Model{
 	}
 
 	public function products(){
-		return $this->hasMany('App\Models\Product');
+		return $this->belongsToMany('App\Models\Product', 'product_categories', 'category_id', 'product_id');
 	}
 
 	public function items(){
-		return $this->hasMany('App\Models\Item');
+		return $this->belongsToMany('App\Models\Item', 'item_categories', 'category_id', 'item_id');
 	}
 }

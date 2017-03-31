@@ -10,12 +10,16 @@ class Item extends Model{
     protected $fillable = ['category_id', 'price', 'quantity', 'quantity_unit_id', 'has_options'];
     protected $dates = ['deleted_at'];
 
-	public function category(){
-		return $this->belongsTo('App\Models\Category');
+	public function categories(){
+		return $this->belongsToMany('App\Models\Category', 'item_categories', 'item_id', 'category_id');
     }
 
 	public function quantity_unit(){
 		return $this->belongsTo('App\Models\QuantityUnit');
+    }
+
+    public function item_categories(){
+        return $this->hasMany('App\Models\ItemCategory');
     }
 
 	public function attributes(){

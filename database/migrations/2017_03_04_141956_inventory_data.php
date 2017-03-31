@@ -49,8 +49,6 @@ class InventoryData extends Migration{
 
         Schema::create('products', function(Blueprint $table){
         	$table->bigIncrements('id');
-        	$table->unsignedInteger('category_id')->nullable();
-        	$table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         	$table->float('price');
         	$table->integer('quantity');
         	$table->unsignedInteger('quantity_unit_id')->nullable();
@@ -79,8 +77,6 @@ class InventoryData extends Migration{
 
         Schema::create('items', function(Blueprint $table){
 			$table->bigIncrements('id');
-			$table->unsignedInteger('category_id')->nullable();
-			$table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
 			$table->float('price');
 			$table->integer('quantity');
 			$table->unsignedInteger('quantity_unit_id')->nullable();
@@ -197,6 +193,22 @@ class InventoryData extends Migration{
 			$table->char('hash', 64)->unique();
 			$table->integer('quantity');
 		});
+		
+		Schema::create('item_categories', function(Blueprint $table){
+		    $table->unsignedBigInteger('item_id');
+		    $table->unsignedInteger('category_id');
+		    $table->primary(['item_id', 'category_id']);
+		    $table->foreign('item_id')->references('id')->on('items')->onUpdate('cascade')->onDelete('cascade');
+		    $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+        });
+
+        Schema::create('product_categories', function(Blueprint $table){
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedInteger('category_id');
+            $table->primary(['product_id', 'category_id']);
+            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
@@ -205,6 +217,8 @@ class InventoryData extends Migration{
      * @return void
      */
     public function down(){
+        Schema::drop('product_categories');
+        Schema::drop('item_categories');
 		Schema::drop('item_quantities');
 		Schema::drop('product_quantities');
 		Schema::drop('item_attributes');

@@ -10,8 +10,8 @@ class Product extends Model{
     protected $fillable = ['category_id', 'price', 'quantity', 'quantity_unit_id', 'has_options', 'is_service'];
     protected $dates = ['deleted_at'];
 
-    public function category(){
-        return $this->belongsTo('App\Models\Category');
+    public function categories(){
+        return $this->belongsToMany('App\Models\Category', 'product_categories', 'product_id', 'category_id');
     }
 
     public function quantity_unit(){
@@ -20,6 +20,10 @@ class Product extends Model{
 
     public function service(){
         return $this->hasOne('App\Models\Service');
+    }
+
+    public function product_categories(){
+        return $this->hasMany('App\Models\ProductCategory');
     }
 
     public function producers(){
