@@ -1,4 +1,6 @@
 (function(){
+    initMenu(urls.listing);
+
     $('#category-updated-at').daterangepicker({
         showDropdowns: true,
         opens: 'left',

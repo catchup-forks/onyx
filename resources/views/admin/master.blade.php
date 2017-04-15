@@ -46,7 +46,7 @@
                 <a href="#" class="nav-link" data-toggle="collapse" data-target="#nav-inventory">{{trans('admin.inventory')}}</a>
                 <div class="collapse navbar-collapse" id="nav-inventory">
                     <ul class="nav flex-column bg-blue-grey-2">
-                        <li class="nav-item"><a class="nav-link" href="#">{{trans('admin.categories')}}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url('admin/category/list')}}">{{trans('admin.categories')}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">{{trans('admin.items')}}</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">{{trans('admin.products')}}</a></li>
                     </ul>
@@ -92,6 +92,10 @@
 <script type="text/javascript" src="{{asset('resources/assets/js/admin.min.js')}}"></script>
 <script type="text/javascript">
     $.ajaxSettings.headers = { 'X-CSRF-TOKEN': '{{csrf_token()}}' };
+    function initMenu(url){
+        $('#side-nav').find('.nav-link[href="'+url+'"]').addClass('text-white').parent('.nav-item')
+            .addClass('bg-blue-grey-3').closest('.navbar-collapse').addClass('show');
+    }
 </script>
 @stack('scripts')
 </body>
