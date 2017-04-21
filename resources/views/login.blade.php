@@ -21,9 +21,9 @@
             <div class="card-block">
                 <form action="" method="post" enctype="application/x-www-form-urlencoded">
                     <div class="row">
-                        <div class="col-xs-12 form-group"><input type="text" class="form-control" name="username" placeholder="{{trans('login.username')}}"></div>
-                        <div class="col-xs-12 form-group"><input type="password" class="form-control" name="password" placeholder="{{trans('login.password')}}"></div>
-                        <div class="col-xs-12"><button class="btn btn-block btn-success" type="submit">{{trans('login.login')}}</button></div>
+                        <div class="col-sm-12 form-group"><input type="text" class="form-control" name="username" placeholder="{{trans('login.username')}}"></div>
+                        <div class="col-sm-12 form-group"><input type="password" class="form-control" name="password" placeholder="{{trans('login.password')}}"></div>
+                        <div class="col-sm-12"><button class="btn btn-block btn-success" type="submit">{{trans('login.login')}}</button></div>
                     </div>
                 </form>
             </div>

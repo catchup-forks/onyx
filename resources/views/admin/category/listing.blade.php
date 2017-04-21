@@ -18,6 +18,15 @@
         </ul>
         <div class="card-block">
             <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group pull-right">
+                        <a href="{{url('admin/category/add')}}" class="btn btn-sm btn-outline-success"><i class="material-icons">add</i> {{trans('admin/category.listing.add')}}</a>
+                        <div class="btn btn-sm btn-outline-warning"><i class="material-icons">delete</i> {{trans('admin/category.listing.remove')}}</div>
+                        <div class="btn btn-sm btn-outline-danger"><i class="material-icons">delete_forever</i> {{trans('admin/category.listing.remove_forever')}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-6 col-md-4">
                     <label for="category-name" class="control-label">{{trans('admin/category.listing.name')}}</label>
                     <input type="text" id="category-name" class="form-control" placeholder="{{trans('admin/category.listing.name')}}">

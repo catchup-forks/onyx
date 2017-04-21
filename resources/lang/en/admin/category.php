@@ -11,7 +11,10 @@ return [
         'all' => '-- All --',
         'both' => 'Both',
         'items' => 'Items',
-        'products' => 'Products'
+        'products' => 'Products',
+        'add' => 'New Category',
+        'remove' => 'Trash Category(s)',
+        'remove_forever' => 'Delete Category(s)'
     ],
     'sales' => [
         'sales_timeline' => 'Sales <small class="text-muted">(linear)</small>',
