@@ -11,6 +11,7 @@
 /resources/assets/images
 /public
 /storage
+!/storage/app
 /vendor
 /.idea
 .env
