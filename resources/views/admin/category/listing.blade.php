@@ -4,6 +4,12 @@
 @endpush
 
 <div class="col-sm-12">
+    @if(Session::has('status'))
+        <div class="alert {{(session('status') == 0)? 'alert-danger' : 'alert-success'}} alert-dismissible fade show">
+            <span class="right close" data-dismiss="alert">&times;</span>
+            {{session('message')}}
+        </div>
+    @endif
     <div class="card border-purple-1">
         <h5 class="card-header">
             {{trans('admin/category.listing.categories')}}

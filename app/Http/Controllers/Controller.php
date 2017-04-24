@@ -36,8 +36,11 @@ class Controller extends BaseController{
 			}
 			$componentName = $this->getComponentName($component[0], $component[1]);
 			try{
-				$this->data[$componentName] = $this->componentObjects[$component[0]]->{$component[1]}();
-				$this->loadedComponents[$componentName] = true;
+			    if(method_exists($this->componentObjects[$component[0]], $component[1]))
+				    $this->data[$componentName] = $this->componentObjects[$component[0]]->{$component[1]}();
+                else
+                    $this->data[$componentName] = [];
+                    $this->loadedComponents[$componentName] = true;
 			} catch(\Exception $e){
 				if(!isset($this->data['componentErrors']))
 					$this->data['componentErrors'] = [];

@@ -3,6 +3,7 @@
 use App\Components\Component;
 use App\QueryBroker\QueryBroker;
 use Datatables, Carbon\Carbon;
+use App\Models\Category as CategoryModel;
 
 class Category extends Component{
     public function listing(){
@@ -26,6 +27,28 @@ class Category extends Component{
                 })->editColumn('updated_at', function($category){
                 	return Carbon::createFromFormat('Y-m-d H:i:s', $category->updated_at)->format('d/m/Y h:i A');
 				})->rawColumns(['select', 'action', 'full_name'])->make(true)->original;
+        return $this->responseData;
+    }
+
+    public function add(){
+        if(request()->method() == 'POST'){
+            try{
+                $category = CategoryModel::create(request()->only(['type', 'position']));
+                foreach(config('locales.available') as &$locale){
+                    if(!empty($name = request()->input("name.$locale[code]")))
+                        $category->locales()->create(compact('name') + [
+                            'description' => request()->input("description.$locale[code]"),
+                            'locale' => $locale['code']
+                        ]);
+                }
+                $this->responseData['success'] = true;
+            } catch(\Exception $e){
+                $this->responseData = [
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ];
+            }
+        }
         return $this->responseData;
     }
 }
