@@ -9,6 +9,8 @@
 /resources/assets/js/select2.full.min.js
 /resources/assets/js/select2.min.js
 /resources/assets/images
+/resources/lang/vendor
+/resources/views/vendor
 /public
 /storage
 !/storage/app
