@@ -181,6 +181,7 @@ return [
         GreyDev\WebComposer\WebComposerServiceProvider::class,
         GreyDev\ConfigExtension\ConfigExtensionProvider::class,
 		Berkayk\OneSignal\OneSignalServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
 
     ],
 
