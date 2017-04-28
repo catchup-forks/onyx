@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model{
     use Localizable, SoftDeletes;
 
-    protected $fillable = ['category_id', 'price', 'quantity', 'quantity_unit_id', 'has_options', 'is_service'];
+    protected $fillable = ['image', 'category_id', 'price', 'quantity', 'quantity_unit_id', 'has_options', 'is_service'];
     protected $dates = ['deleted_at'];
 
     public function categories(){
@@ -64,5 +64,10 @@ class Product extends Model{
 
     public function reviews(){
         return $this->hasMany('App\Models\Review');
+    }
+
+    public function getImageAttribute($image){
+        $protocol = (!empty(request()->server('HTTPS')))? 'https' : 'http';
+        return "$protocol://".request()->server('HTTP_HOST')."/storage/app/images/products/{$this->category_id}/$image";
     }
 }
