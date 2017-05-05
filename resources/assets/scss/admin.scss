@@ -79,4 +79,21 @@ form{
         margin: 0;
         padding-top: 4px;
     }
+    .image{
+        width: 256px;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        position: relative;
+        .btns{
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            display: none;
+        }
+    }
+    .image:hover{
+        .btns{
+            display: block;
+        }
+    }
 }

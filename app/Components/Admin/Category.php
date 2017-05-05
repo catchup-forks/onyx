@@ -33,7 +33,14 @@ class Category extends Component{
     public function add(){
         if(request()->method() == 'POST'){
             try{
-                $category = CategoryModel::create(request()->only(['type', 'position']));
+                $image = [];
+                if(request()->hasFile('image')){
+                    $imageFile = request()->file('image');
+                    $filename = md5(uniqid('c').time()).'.'.$imageFile->getClientOriginalExtension();
+                    \Image::make($imageFile)->resize(config('image-size.category.width'), config('image-size.category.height'))->save(storage_path('app/images/category')."/$filename");
+                    $image['image'] = $filename;
+                }
+                $category = CategoryModel::create(request()->only(['type', 'position']) + $image);
                 foreach(config('locales.available') as &$locale){
                     if(!empty($name = request()->input("name.$locale[code]")))
                         $category->locales()->create(compact('name') + [

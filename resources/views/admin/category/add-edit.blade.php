@@ -20,10 +20,23 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row form-group">
                             <label for="position" class="col-sm-2 control-label">{{trans('admin/category.add_edit.position')}}</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="position" name="position" value="{{$category['position'] or null}}" placeholder="{{trans('admin/category.add_edit.position')}}"></div>
+                        </div>
+                        <div class="row">
+                            <label for="image" class="col-sm-2 control-label">{{trans('admin/category.add_edit.image')}}</label>
+                            <div class="col-sm-10">
+                                <div class="image" id="image">
+                                    <input type="file" class="hidden-xs-up hidden-xs-down" name="image" id="image-input">
+                                    <img class="img-fluid" src="{{$image}}" alt="Category Image">
+                                    <div class="btns">
+                                        <div class="btn btn-sm btn-success"><i class="material-icons">add</i></div>
+                                        <div class="btn btn-sm btn-danger"><i class="material-icons">close</i></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <ul class="nav nav-tabs col-sm-12">
@@ -58,9 +71,11 @@
 </div>
 
 @push('scripts')
+<script type="text/javascript" src="{{asset('resources/assets/js/imageInput.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         initMenu('{{url('admin/category/list')}}');
+        imageInput('.image', '{{$image}}');
     });
 </script>
 @endpush
