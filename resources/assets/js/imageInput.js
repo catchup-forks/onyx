@@ -1,5 +1,5 @@
 (function($){
-    window.imageInput = function(container, defaultImage){
+    window.imageInput = function(container, defaultImage, oldImage){
         var fileReader = new FileReader();
 
         $('body').on('click', container+' .btn-sm.btn-success', function(){

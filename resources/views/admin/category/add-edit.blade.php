@@ -21,6 +21,18 @@
                             </div>
                         </div>
                         <div class="row form-group">
+                            <label for="input-parent" class="col-sm-2 control-label">{{trans('admin/category.add_edit.parent')}}</label>
+                            <div class="col-sm-10 show" id="input-parent-container">
+                                <input type="text" id="input-parent" class="form-control" placeholder="{{trans('admin/category.add_edit.parent')}}" v-model="query" @keyup="processSearch">
+                                <input type="hidden" name="parent_id" id="parent-id">
+                                <ul id="category-autocomplete" class="dropdown-menu autocomplete" v-if="results.length > 0">
+                                    <template v-for="category in results">
+                                        <li class="dropdown-item" :data-id="category.id">@{{category.name}}</li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row form-group">
                             <label for="position" class="col-sm-2 control-label">{{trans('admin/category.add_edit.position')}}</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" id="position" name="position" value="{{$category['position'] or null}}" placeholder="{{trans('admin/category.add_edit.position')}}"></div>
@@ -29,6 +41,7 @@
                             <label for="image" class="col-sm-2 control-label">{{trans('admin/category.add_edit.image')}}</label>
                             <div class="col-sm-10">
                                 <div class="image" id="image">
+                                    <input type="hidden" name="no_image" value="{{(strpos($image, 'resources/assets/img/placeholder.png') !== false)? 1 : 0}}">
                                     <input type="file" class="hidden-xs-up hidden-xs-down" name="image" id="image-input">
                                     <img class="img-fluid" src="{{$image}}" alt="Category Image">
                                     <div class="btns">
@@ -72,10 +85,15 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{asset('resources/assets/js/imageInput.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('resources/assets/js/autocomplete.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         initMenu('{{url('admin/category/list')}}');
         imageInput('.image', '{{$image}}');
+        autocomplete('#input-parent', '#category-autocomplete', '{{url('admin/category/autocomplete')}}', '#parent-id');
+        @if($form == 'edit')
+            setInputValue('{{$category['parent_full_name']}}');
+        @endif
     });
 </script>
 @endpush

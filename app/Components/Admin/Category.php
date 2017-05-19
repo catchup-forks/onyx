@@ -19,9 +19,9 @@ class Category extends Component{
 					}
 				})
 				->addColumn('full_name', function($category){
-                    $categoryName = $category->locales->first()->name;
+                    $categoryName = $category->locale->first()->name;
                     while(!is_null($category = $category->ancestors)){
-                        $categoryName = $category->locales->first()->name.' <span class="material-icons">chevron_right</span> '.$categoryName;
+                        $categoryName = $category->locale->first()->name.' <span class="material-icons">chevron_right</span> '.$categoryName;
                     }
                     return $categoryName;
                 })->editColumn('updated_at', function($category){
@@ -40,7 +40,7 @@ class Category extends Component{
                     \Image::make($imageFile)->resize(config('image-size.category.width'), config('image-size.category.height'))->save(storage_path('app/images/category')."/$filename");
                     $image['image'] = $filename;
                 }
-                $category = CategoryModel::create(request()->only(['type', 'position']) + $image);
+                $category = CategoryModel::create(request()->only(['parent_id', 'type', 'position']) + $image);
                 foreach(config('locales.available') as &$locale){
                     if(!empty($name = request()->input("name.$locale[code]")))
                         $category->locales()->create(compact('name') + [
@@ -57,5 +57,27 @@ class Category extends Component{
             }
         }
         return $this->responseData;
+    }
+
+    public function autocomplete(){
+        $query = request()->input('query');
+        if(strlen($query) > 2){
+            $categories = QueryBroker::make('Inventory\CategoryBroker@autocomplete')->take(request()->input('limit', 10))->get();
+            $results = [];
+            foreach($categories as &$category){
+                foreach($category->locales as &$locale){
+                    $categoryName = $locale->name;
+                    if(strpos(strtolower($categoryName), strtolower($query)) === false)
+                        continue;
+                    $parentCategory = $category;
+                    while(!is_null($parentCategory = $parentCategory->ancestors)){
+                        $categoryName = $parentCategory->locales()->where('locale', $locale->locale)->first()->name.' > ' .$categoryName;
+                    }
+                    $results[] = ['id' => $category->id, 'name' => $categoryName];
+                }
+            }
+        } else
+            $results = [];
+        return compact('results');
     }
 }

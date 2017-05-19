@@ -13,6 +13,7 @@
     @stack('styles')
     <script type="text/javascript" src="{{asset('resources/assets/js/jquery-2.1.0.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/assets/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/assets/js/vue.min.js')}}"></script>
 </head>
 <body class="bg-grey-8" @if($globalLocale == 'ar') dir="rtl" @endif>
 <nav class="navbar navbar-inverse bg-grey-1 fixed-top navbar-toggleable-xs navbar-toggleable-sm navbar-toggleable-md navbar-toggleable-lg navbar-toggleable-xl">

@@ -27,4 +27,8 @@ class CategoryController extends Controller{
         }
         return redirect('admin/category/list')->with($response);
     }
+
+    public function postAutocomplete(){
+        return response()->json($this->loadAjaxData('Admin\Category@autocomplete'));
+    }
 }

@@ -36,6 +36,7 @@ return [
         'edit' => 'Edit Category',
         'save' => 'Save Category',
         'name' => 'Category Name',
+        'parent' => 'Parent Category',
         'image' => 'Category Image',
         'description' => 'Description',
         'position' => 'Sort Order',
