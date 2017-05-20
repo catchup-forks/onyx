@@ -34,13 +34,13 @@ class Controller extends BaseController{
 				$componentClass = "\\App\\Components\\$component[0]";
 				$this->componentObjects[$component[0]] = new $componentClass();
 			}
-			$componentName = $this->getComponentName($component[0], $component[1]);
+			$componentName = $this->getComponentViewName($component[0], $component[1]);
 			try{
 			    if(method_exists($this->componentObjects[$component[0]], $component[1]))
 				    $this->data[$componentName] = $this->componentObjects[$component[0]]->{$component[1]}();
                 else
                     $this->data[$componentName] = [];
-                    $this->loadedComponents[$componentName] = true;
+                $this->loadedComponents[$componentName] = true;
 			} catch(\Exception $e){
 				if(!isset($this->data['componentErrors']))
 					$this->data['componentErrors'] = [];
@@ -69,7 +69,7 @@ class Controller extends BaseController{
 	 * @param string $feature Component class method.
 	 * @return string "component.feature" view name.
 	 */
-	private function getComponentName($name, $feature){
+	private function getComponentViewName($name, $feature){
         $name = explode('\\', $name);
         $area = str_replace('_', '-', snake_case($name[0]));
 		$name = str_replace('_', '-', snake_case($name[1]));
