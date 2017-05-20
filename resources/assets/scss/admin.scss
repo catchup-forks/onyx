@@ -29,9 +29,11 @@
 }
 #navbar-placeholder{ height: 70px; }
 #main-row{ margin: 0; }
-#side-nav{
+#side-nav-sticky-wrapper{
     margin-top: -14px;
     padding: 0;
+}
+#side-nav{
     a{
         color: #cccccc;
         &:hover{ color: #ffffff; }

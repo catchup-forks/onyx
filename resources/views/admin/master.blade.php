@@ -13,6 +13,7 @@
     @stack('styles')
     <script type="text/javascript" src="{{asset('resources/assets/js/jquery-2.1.0.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/assets/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('resources/assets/js/jquery.sticky.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('resources/assets/js/vue.min.js')}}"></script>
 </head>
 <body class="bg-grey-8" @if($globalLocale == 'ar') dir="rtl" @endif>
@@ -40,7 +41,7 @@
 </nav>
 <div id="navbar-placeholder"></div>
 <div class="row" id="main-row">
-    <div class="col-md-2 bg-blue-grey-1" id="side-nav">
+    <div class="bg-blue-grey-1" id="side-nav">
         <ul class="nav flex-column">
             <li class="nav-item"><a href="#" class="nav-link active">Dashboard</a></li>
             <li class="nav-item dropdown">
@@ -93,10 +94,6 @@
 <script type="text/javascript" src="{{asset('resources/assets/js/admin.min.js')}}"></script>
 <script type="text/javascript">
     $.ajaxSettings.headers = { 'X-CSRF-TOKEN': '{{csrf_token()}}' };
-    function initMenu(url){
-        $('#side-nav').find('.nav-link[href="'+url+'"]').addClass('text-white').parent('.nav-item')
-            .addClass('bg-blue-grey-3').closest('.navbar-collapse').addClass('show');
-    }
 </script>
 @stack('scripts')
 </body>
