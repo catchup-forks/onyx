@@ -31,7 +31,10 @@ class Category extends Model{
 	}
 
     public function getImageAttribute($image){
-        $protocol = (!empty(request()->server('HTTPS')))? 'https' : 'http';
-        return "$protocol://".request()->server('HTTP_HOST')."/storage/app/images/category/$image";
+        if(!empty($image)){
+            $protocol = (!empty(request()->server('HTTPS')))? 'https' : 'http';
+            return "$protocol://".request()->server('HTTP_HOST')."/storage/app/images/category/$image";
+        } else
+            return $image;
     }
 }
