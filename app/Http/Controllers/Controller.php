@@ -42,9 +42,7 @@ class Controller extends BaseController{
                     $this->data[$componentName] = [];
                 $this->loadedComponents[$componentName] = true;
 			} catch(\Exception $e){
-				if(!isset($this->data['componentErrors']))
-					$this->data['componentErrors'] = [];
-				$this->data['componentErrors'] += [$componentName => $e->getMessage()];
+				$this->data[$componentName] = $e->getMessage()."\nIn".$e->getFile().' at line:'.$e->getLine();
 				$this->loadedComponents[$componentName] = false;
 			}
 		}
