@@ -26,13 +26,13 @@
             }
         });
 
-        if(selectionElement !== undefined){
-            $('body').on('click', outputElement+' li.dropdown-item', function(){
+        $('body').on('click', outputElement+' li.dropdown-item', function(){
+            if(selectionElement !== undefined){
                 $(selectionElement).val($(this).attr('data-id'));
-                $(inputElement).val($(this).text());
-                output.results = {};
-            });
-        }
+            }
+            $(inputElement).val($(this).text());
+            output.results = {};
+        });
     };
 
     window.setInputValue = function(value){
