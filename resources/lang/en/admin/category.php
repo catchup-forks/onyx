@@ -41,8 +41,14 @@ return [
         'description' => 'Description',
         'position' => 'Sort Order',
         'type' => 'Category Type',
-        'all_types' => 'Products & Items',
+        'all_types' => 'Products & Items'
+    ],
+    'add' => [
         'success' => 'Category has been successfully created.',
         'failure' => 'Category creation process failed!'
+    ],
+    'edit' => [
+        'success' => 'Category has been successfully edited.',
+        'failure' => 'Category editing process failed!'
     ]
 ];

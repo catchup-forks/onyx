@@ -13,6 +13,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('list', 'Admin\CategoryController@postList');
         Route::get('add', 'Admin\CategoryController@getAdd');
         Route::post('add', 'Admin\CategoryController@postAdd');
+        Route::get('edit', 'Admin\CategoryController@getEdit');
+        Route::post('edit', 'Admin\CategoryController@postEdit');
         Route::post('autocomplete', 'Admin\CategoryController@postAutocomplete');
     });
 });

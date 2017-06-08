@@ -4,13 +4,14 @@ use App\Components\Component;
 use App\QueryBroker\QueryBroker;
 use Datatables, Carbon\Carbon;
 use App\Models\Category as CategoryModel;
+use App\Models\CategoryLocale;
 
 class Category extends Component{
     public function listing(){
         if(request()->method() == 'POST')
             $this->responseData = Datatables::of(QueryBroker::make('Inventory\CategoryBroker@listing'))
                 ->addColumn('select', '<input type="checkbox" name="select_{{$id}}">')
-                ->addColumn('action', '<div class="btn btn-sm btn-outline-primary" data-id="{{$id}}"><i class="material-icons">edit</i></div>')
+                ->addColumn('action', '<a href="{{url(\'admin/category/edit\')}}?id={{$id}}" class="btn btn-sm btn-outline-primary"><i class="material-icons">edit</i></a>')
 				->addColumn('for', function($category){
 					switch($category->type){
 						case CATEGORY_ITEMS: return trans('admin/category.listing.items');
@@ -43,6 +44,64 @@ class Category extends Component{
                 $category = CategoryModel::create(request()->only(['parent_id', 'type', 'position']) + $image);
                 foreach(config('locales.available') as &$locale){
                     if(!empty($name = request()->input("name.$locale[code]")))
+                        $category->locales()->create(compact('name') + [
+                            'description' => request()->input("description.$locale[code]"),
+                            'locale' => $locale['code']
+                        ]);
+                }
+                $this->responseData['success'] = true;
+            } catch(\Exception $e){
+                $this->responseData = [
+                    'success' => false,
+                    'error' => $e->getMessage()
+                ];
+            }
+        }
+        return $this->responseData;
+    }
+
+    public function edit(){
+        $category = QueryBroker::make('Inventory\CategoryBroker@category')->find(request()->input('id'));
+        if(request()->method() == 'GET'){
+            $locales = [];
+            $category->locales->each(function($locale) use(&$locales){
+                $locales[$locale->locale] = [
+                    'name' => $locale->name,
+                    'description' => $locale->description
+                ];
+            });
+            $category->setHidden(['locales']);
+            $category->setAttribute('localized', $locales);
+            $parentFullName = [];
+            $parentCategory = $category;
+            while(!is_null($parentCategory = $parentCategory->ancestors))
+                $parentFullName[] = $parentCategory->locale->first()->name;
+            $parentFullName = implode(' > ', array_reverse($parentFullName));
+            $category->setAttribute('parent_full_name', $parentFullName);
+            $this->responseData = ['category' => $category->toArray()];
+        } elseif(request()->method() == 'POST'){
+            try{
+                $image = [];
+                if(!empty($category->image) && request()->input('update_image.0') == 1){
+                    $image = explode('/', $category->image);
+                    unlink('storage/app/images/category/'.end($image));
+                    $image = ['image' => ''];
+                }
+                if(request()->hasFile('image')){
+                    $imageFile = request()->file('image');
+                    $filename = md5(uniqid('c').time()).'.'.$imageFile->getClientOriginalExtension();
+                    \Image::make($imageFile)->resize(config('image-size.category.width'), config('image-size.category.height'))->save(storage_path('app/images/category')."/$filename");
+                    $image['image'] = $filename;
+                }
+                $category->update(request()->only(['parent_id', 'type', 'position']) + $image);
+                foreach(config('locales.available') as &$locale){
+                    if($categoryLocale = $category->locales->where('locale', $locale['code'])->first()){
+                        if(!empty($name = request()->input("name.$locale[code]")))
+                            CategoryLocale::where(['category_id' => $category->id, 'locale' => $locale['code']])->update(compact('name')
+                                + ['description' => request()->input("description.$locale[code]")]);
+                        else
+                            CategoryLocale::where(['category_id' => $category->id, 'locale' => $locale['code']])->delete();
+                    } elseif(!empty($name = request()->input("name.$locale[code]")))
                         $category->locales()->create(compact('name') + [
                             'description' => request()->input("description.$locale[code]"),
                             'locale' => $locale['code']
