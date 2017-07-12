@@ -11,17 +11,22 @@
             data: { query: '' },
             methods: {
                 processSearch: function(){
-                    $.ajax({
-                        url: searchUrl,
-                        type: 'POST',
-                        data: { query: this.query },
-                        success: function(response){
-                            output.results = response.results;
-                        },
-                        error: function(xhr){
-                            console.log(xhr.responseText);
-                        }
-                    });
+                    var autocompleteClear = $(inputElement).next().next();
+                    if(this.query != ''){
+                        autocompleteClear.css('display', '');
+                        $.ajax({
+                            url: searchUrl,
+                            type: 'POST',
+                            data: { query: this.query },
+                            success: function(response){
+                                output.results = response.results;
+                            },
+                            error: function(xhr){
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    } else
+                        autocompleteClear.trigger('click');
                 }
             }
         });
@@ -32,6 +37,8 @@
             }
             $(inputElement).val($(this).text());
             output.results = {};
+        }).on('click', '.autocomplete-clear', function(){
+            $(this).css('display', 'none').prev().val('').prev().val('');
         });
     };
 

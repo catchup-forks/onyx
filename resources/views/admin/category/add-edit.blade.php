@@ -25,6 +25,7 @@
                             <div class="col-sm-10 show" id="input-parent-container">
                                 <input type="text" id="input-parent" class="form-control" placeholder="{{trans('admin/category.add_edit.parent')}}" v-model="query" @keyup="processSearch" autocomplete="off">
                                 <input type="hidden" name="parent_id" id="parent-id" value="{{$category['parent_id'] or null}}">
+                                <i class="material-icons autocomplete-clear text-muted">close</i>
                                 <ul id="category-autocomplete" class="dropdown-menu autocomplete" v-if="results.length > 0">
                                     <li v-for="category in results" class="dropdown-item" :data-id="category.id">@{{category.name}}</li>
                                 </ul>
@@ -86,7 +87,7 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{asset('resources/assets/js/imageInput.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('resources/assets/js/autocomplete.js')}}"></script>
+<script type="text/javascript" src="{{asset('resources/assets/js/autocomplete.min.js')}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         initMenu('{{url('admin/category/list')}}');

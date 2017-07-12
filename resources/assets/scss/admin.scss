@@ -114,3 +114,10 @@ form{
         border-bottom: 1px solid rgba(0,0,0,.15);
     }
 }
+
+.autocomplete-clear{
+    position: absolute;
+    top: 6px;
+    right: 24px;
+    cursor: pointer;
+}
