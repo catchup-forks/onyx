@@ -53,8 +53,10 @@ class InventoryManagement extends Migration
         	$table->bigIncrements('id');
         	$table->unsignedBigInteger('production_id');
         	$table->foreign('production_id')->references('id')->on('productions')->onUpdate('cascade')->onDelete('cascade');
-        	$table->unsignedBigInteger('item_quantity_id');
-        	$table->foreign('item_quantity_id')->references('id')->on('item_quantities')->onUpdate('cascade')->onDelete('cascade');
+        	$table->unsignedBigInteger('item_id');
+        	$table->foreign('item_id')->references('id')->on('items')->onUpdate('cascade')->onDelete('cascade');
+        	$table->unsignedBigInteger('item_quantity_id')->nullable();
+        	$table->foreign('item_quantity_id')->references('id')->on('item_quantities')->onUpdate('cascade')->onDelete('set null');
         	$table->unsignedBigInteger('quantity');
 		});
 

@@ -10,6 +10,10 @@ class Consumption extends Model{
 		return $this->belongsTo('App\Models\Production');
     }
 
+    public function item(){
+        return $this->belongsTo('App\Models\Item');
+    }
+
 	public function item_quantity(){
 		$this->belongsTo('App\Models\ItemQuantity');
     }
