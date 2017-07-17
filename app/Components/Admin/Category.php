@@ -16,7 +16,7 @@ class Category extends Component{
 					switch($category->type){
 						case CATEGORY_ITEMS: return trans('admin/category.listing.items');
 						case CATEGORY_PRODUCTS: return trans('admin/category.listing.products');
-						default: return trans('admin/category.listing.both');
+						default: return trans('admin/common.both');
 					}
 				})
 				->addColumn('full_name', function($category){
