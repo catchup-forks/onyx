@@ -50,8 +50,11 @@
 }
 .table-filter-clear{
     cursor: pointer;
-    padding-bottom: 2px;
+    padding-bottom: 6px;
     padding-top: 6px;
+    i.material-icons{
+        margin-left: -4px;
+    }
 }
 
 tbody{
