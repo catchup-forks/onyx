@@ -12,4 +12,5 @@
     };
 
     $('#side-nav').sticky({ wrapperClassName: 'sticky-wrapper col-md-2', topSpacing: 56 });
+    $('#side-nav-sticky-wrapper').addClass('collapse width show');
 })();

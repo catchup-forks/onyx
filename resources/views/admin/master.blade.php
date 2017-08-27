@@ -25,7 +25,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <div class="btn btn-outline-secondary btn-sm mt-1 border-purple-6"><i class="material-icons text-purple-6">menu</i></div>
+            <div class="btn btn-outline-secondary btn-sm mt-1 border-purple-6" data-toggle="collapse" data-target="#side-nav-sticky-wrapper">
+                <i class="material-icons text-purple-6">menu</i>
+            </div>
         </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
@@ -91,7 +93,7 @@
         @yield('content')
     </div>
 </div>
-<script type="text/javascript" src="{{asset('resources/assets/js/admin.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('resources/assets/js/admin.js')}}"></script>
 <script type="text/javascript">
     $.ajaxSettings.headers = { 'X-CSRF-TOKEN': '{{csrf_token()}}' };
 </script>
